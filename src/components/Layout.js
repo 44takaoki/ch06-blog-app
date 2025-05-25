@@ -4,16 +4,6 @@ export default function Layout({ posts }) {
     const yeardate = new Date(date.createdAt).toLocaleString().split(" ", 1);
     return yeardate;
   };
-  // // <br />を改行として表示
-  // const linebreak = (texts) => {
-  //   texts.split("<br/>").map((text, index) => (
-
-  //     <>
-  //       {text}
-  //       <br />
-  //     </>
-  //   )
-  // };
 
   return (
     <ul className="max-w-4xl grid grid-cols-1 gap-2 mx-auto mt-6 ">
@@ -34,14 +24,10 @@ export default function Layout({ posts }) {
           </div>
           <p className="text-xl m-2 text-gray-500 ">{post.title}</p>
           {/* <img src={post.thumbnailUrl} alt={post.id} /> */}
-          <div className="m-2 w-2/3  text-gray-500 line-clamp-3">
-            {post.content.split("<br/>").map((line, index) => (
-              <p key={index}>
-                {line}
-                <br />
-              </p>
-            ))}
-          </div>
+          <div
+            className="m-2 w-2/3  text-gray-500 line-clamp-2"
+            dangerouslySetInnerHTML={{ __html: post.content }}
+          />
         </li>
       ))}
     </ul>
