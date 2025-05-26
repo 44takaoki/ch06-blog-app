@@ -7,7 +7,6 @@ export default function PostDetailPage() {
   const { id } = useParams();
   return (
     <div>
-      {/* <p>URL Parameterer is {id}</p> */}
       <PostDetail posts={posts} id={id} />
     </div>
   );
