@@ -1,5 +1,5 @@
 import { posts } from "../data/posts";
-import Layout from "./Layout";
+import PostList from "./PostList";
 
 export default function TopPage() {
   return (
@@ -11,7 +11,7 @@ export default function TopPage() {
         </div>
       </header>
       <div>
-        <Layout posts={posts} />
+        <PostList posts={posts} />
       </div>
     </>
   );

@@ -1,21 +1,15 @@
-import logo from "./logo.svg";
 import "./App.css";
+import { Link, Route, Routes } from "react-router-dom";
+import TopPage from "./components/TopPage";
+import PostsDetailPage from "./components/PostDetailPage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>test</p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<TopPage />} />
+        <Route path="/posts/:id" element={<PostsDetailPage />} />
+      </Routes>
     </div>
   );
 }
