@@ -4,7 +4,11 @@ export default function PostDetail({ posts, id }) {
     const yeardate = new Date(date.createdAt).toLocaleString().split(" ", 1);
     return yeardate;
   };
+
   const post = posts.find((item) => item.id === Number(id));
+
+  if (!post) return <p className="text-left">投稿が見つかりませんでした</p>;
+
   return (
     <ul className="max-w-[800px] grid grid-cols-1 gap-2 mx-auto mt-6 ">
       <li key={post.id} className="h-auto m-5 p-3  ">
