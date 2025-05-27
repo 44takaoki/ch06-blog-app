@@ -11,7 +11,7 @@ export default function PostList({ posts }) {
     <ul className="max-w-4xl grid grid-cols-1 gap-2 mx-auto mt-6 ">
       {posts.map((post) => (
         <li key={post.id} className="h-auto m-5 p-3 border border-slate-400 ">
-          <Link to={`/posts/${post.id}`} state={posts}>
+          <Link to={`/posts/${post.id}`}>
             <div className="flex justify-between mx-auto  ">
               <p className="text-gray-400 m-2">{formatDate(post)}</p>
               <div className="flex space-x-2 ">
