@@ -6,6 +6,7 @@ export default function PostDetailPage() {
   // ルートパラメータを取得
   const { id } = useParams();
   const [post, setPost] = useState([]);
+  const [isLoading, setLoading] = useState(true);
   // const { state: posts } = useLocation();
 
   // APIでpostを取得する処理をuseEffectで実行
@@ -17,11 +18,14 @@ export default function PostDetailPage() {
       const data = await res.json();
 
       setPost(data.post);
+      setLoading(false);
     };
 
     fetcher();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (isLoading) return <p className="text-left">読み込み中...</p>;
 
   return (
     <div>

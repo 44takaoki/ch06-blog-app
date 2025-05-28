@@ -3,6 +3,7 @@ import PostList from "./PostList";
 
 export default function TopPage() {
   const [posts, setPosts] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
   // APIでpostsを取得する処理をuseEffectで実行します。
   useEffect(() => {
@@ -12,10 +13,13 @@ export default function TopPage() {
       );
       const data = await res.json();
       setPosts(data.posts);
+      setLoading(false);
     };
 
     fetcher();
   }, []);
+
+  if (isLoading) return <p className="text-left">読み込み中...</p>;
 
   return (
     <>
