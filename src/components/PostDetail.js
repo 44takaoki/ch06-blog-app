@@ -1,11 +1,11 @@
-export default function PostDetail({ posts, id }) {
+export default function PostDetail({ post }) {
   const formatDate = (date) => {
     // 日時をyyyy/MM/DD形式にフォーマット
     const yeardate = new Date(date.createdAt).toLocaleString().split(" ", 1);
     return yeardate;
   };
 
-  const post = posts.find((item) => item.id === Number(id));
+  // const post = posts.find((item) => item.id === Number(id));
 
   if (!post) return <p className="text-left">投稿が見つかりませんでした</p>;
 
@@ -18,7 +18,7 @@ export default function PostDetail({ posts, id }) {
         <div className="flex justify-between mx-auto m-3 ">
           <p className="m-2 text-gray-400">{formatDate(post)}</p>
           <div className="flex space-x-2 ">
-            {post.categories.map((category, index) => (
+            {post.categories?.map((category, index) => (
               <p
                 key={index}
                 className="p-1 text-blue-500 border border-blue-300 rounded-md "
