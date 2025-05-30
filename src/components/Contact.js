@@ -9,14 +9,14 @@ export default function Contact() {
     message: "",
   });
 
-  const [errorMessage, setErrorMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState({});
 
   // フォームの更新
-  const handleForm = (e) => {
+  const handleUpdate = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
   // フォームのリセット
-  const onChangeReset = (e) => {
+  const handleReset = (e) => {
     setForm({ name: "", email: "", message: "" });
   };
 
@@ -59,25 +59,29 @@ export default function Contact() {
     e.preventDefault(); //デフォルトの機能、ページのリロードを防ぐ
     if (!valid()) return; //isVaid = falseのとき、処理を中断
     setSubmit(true); //isSubmit = trueのとき、入力の無効化
+    try {
+      const res = await fetch(
+        "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
-    const res = await fetch(
-      "https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form),
-      }
-    );
+      const data = await res.json();
+      console.log("送信成功:", data);
 
-    const data = await res.json();
-    console.log("送信成功:", data);
+      alert("送信しました");
 
-    alert("送信しました");
-
-    setSubmit(false); //isSubmit = falseに戻し、入力の有効化
-    onChangeReset();
+      setSubmit(false); //isSubmit = falseに戻し、入力の有効化
+      handleReset();
+    } catch (error) {
+      // エラーのハンドリング
+      alert("データの送信に失敗しました。");
+    }
   };
 
   return (
@@ -96,7 +100,7 @@ export default function Contact() {
               name="name"
               type="text"
               className="w-full border border-gray-300 rounded p-3"
-              onChange={handleForm}
+              onChange={handleUpdate}
               value={form.name}
               disabled={isSubmit}
             />
@@ -117,7 +121,7 @@ export default function Contact() {
               type="email"
               id="email"
               name="email"
-              onChange={handleForm}
+              onChange={handleUpdate}
               value={form.email}
               disabled={isSubmit}
             />
@@ -136,7 +140,7 @@ export default function Contact() {
               type="text"
               id="message"
               name="message"
-              onChange={handleForm}
+              onChange={handleUpdate}
               value={form.message}
               disabled={isSubmit}
             ></textarea>
@@ -156,8 +160,9 @@ export default function Contact() {
           </button>
           <button
             className="bg-slate-200 px-6 py-3 rounded"
-            onClick={onChangeReset}
             type="button"
+            disabled={isSubmit}
+            onClick={handleReset}
           >
             クリア
           </button>
